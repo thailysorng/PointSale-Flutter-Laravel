@@ -5,5 +5,5 @@ A Point of Sale system.
 
 ## Documentation
 
-- [Frontend Documentation](./frontend/README.md)
-- [Backend Documentation](./backend/README.md)
+- [Frontend Documentation](./Frontend/README.md)
+- [Backend Documentation](./Backend/README.md)
