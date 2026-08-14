@@ -134,7 +134,7 @@ http://localhost:8000
 
 ## 4. Generate Laravel Application Key
 
-If this is a fresh installation, generate the Laravel application key:
+This is a fresh installation, generate the Laravel application key for encryption:
 
 ```bash
 docker compose exec app php artisan key:generate
@@ -178,7 +178,7 @@ Then start the frontend using its Docker configuration.
 docker compose up -d --build
 ```
 
-The Flutter web application should be available at the configured frontend port, for example:
+The Flutter web application should be available at the configured frontend port, Likely:
 
 ```text
 http://localhost:8080
