@@ -83,13 +83,6 @@ DB_PASSWORD=your_non_root_user_password
 MYSQL_ROOT_PASSWORD=your_mysql_root_password
 ```
 
-Make sure these passwords match:
-
-```env
-DB_PASSWORD=your_mysql_root_password
-MYSQL_ROOT_PASSWORD=your_mysql_root_password
-```
-
 > `MYSQL_ROOT_PASSWORD` is used by the MySQL Docker container to create/configure the root database user.
 
 ### Mail Configuration
