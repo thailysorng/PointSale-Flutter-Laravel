@@ -58,7 +58,7 @@ Create the Laravel environment file:
 cp .env.example .env
 ```
 
-On Windows, you can also copy `.env.example` manually and rename the copy to:
+On Windows, you can also copy `.env.example` manually and rename it to:
 
 ```text
 .env
@@ -66,11 +66,11 @@ On Windows, you can also copy `.env.example` manually and rename the copy to:
 
 ### Configure `.env`
 
-Check the database settings in `.env`.
+Before starting the application, configure the following values in `.env`.
 
-The database host must match the database service name defined in `docker-compose.yml`.
+#### Database
 
-Example:
+The MySQL password must match the `MYSQL_ROOT_PASSWORD` used by Docker.
 
 ```env
 DB_CONNECTION=mysql
@@ -78,12 +78,72 @@ DB_HOST=mysql_db
 DB_PORT=3306
 DB_DATABASE=point_sale
 DB_USERNAME=root
-DB_PASSWORD=your_password
+DB_PASSWORD=your_mysql_root_password
+
+MYSQL_ROOT_PASSWORD=your_mysql_root_password
 ```
 
-> Do not commit `.env` to Git. It contains environment-specific and potentially sensitive information.
+Make sure these passwords match:
 
----
+```env
+DB_PASSWORD=your_mysql_root_password
+MYSQL_ROOT_PASSWORD=your_mysql_root_password
+```
+
+> `MYSQL_ROOT_PASSWORD` is used by the MySQL Docker container to create/configure the root database user.
+
+### Mail Configuration
+
+The application uses email functionality for features such as account verification or password reset.
+
+Configure the mail settings in `.env` according to the mail service being used.
+
+For example:
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=your_smtp_host
+MAIL_PORT=587
+MAIL_USERNAME=your_email
+MAIL_PASSWORD=your_email_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=your_email
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+Replace the values with the credentials provided by your email provider.
+
+> Do not commit `.env` to Git. It may contain database passwords, email credentials, API keys, and other sensitive information.
+
+### Generate Application Key
+
+After configuring `.env`, generate the Laravel application key:
+
+```bash
+docker compose exec app php artisan key:generate
+```
+
+### Database Migration
+
+After the containers are running, create the database tables:
+
+```bash
+docker compose exec app php artisan migrate
+```
+
+If the project requires initial seed data:
+
+```bash
+docker compose exec app php artisan migrate --seed
+```
+
+### Storage
+
+If the application uses files stored in Laravel's public storage:
+
+```bash
+docker compose exec app php artisan storage:link
+```
 
 ## 3. Start the Backend
 
