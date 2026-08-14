@@ -115,36 +115,6 @@ Replace the values with the credentials provided by your email provider.
 
 > Do not commit `.env` to Git. It may contain database passwords, email credentials, API keys, and other sensitive information.
 
-### Generate Application Key
-
-After configuring `.env`, generate the Laravel application key:
-
-```bash
-docker compose exec app php artisan key:generate
-```
-
-### Database Migration
-
-After the containers are running, create the database tables:
-
-```bash
-docker compose exec app php artisan migrate
-```
-
-If the project requires initial seed data:
-
-```bash
-docker compose exec app php artisan migrate --seed
-```
-
-### Storage
-
-If the application uses files stored in Laravel's public storage:
-
-```bash
-docker compose exec app php artisan storage:link
-```
-
 ## 3. Start the Backend
 
 From the `backend` directory:
@@ -187,18 +157,6 @@ Run the migrations inside the Laravel container:
 docker compose exec app php artisan migrate
 ```
 
-If the project requires seed data:
-
-```bash
-docker compose exec app php artisan db:seed
-```
-
-Or, if appropriate for a fresh database:
-
-```bash
-docker compose exec app php artisan migrate --seed
-```
-
 ---
 
 ## 6. Storage Link
@@ -220,16 +178,6 @@ cd ../frontend
 ```
 
 The Flutter application is also configured to run through Docker.
-
-Create the required environment/configuration files if the project provides an example file.
-
-Make sure the frontend API URL points to the running Laravel backend.
-
-For example:
-
-```text
-http://localhost:8000
-```
 
 Then start the frontend using its Docker configuration.
 
