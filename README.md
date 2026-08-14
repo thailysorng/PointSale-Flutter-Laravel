@@ -163,28 +163,7 @@ Replace:
 * `MAIL_PASSWORD` → the **Google App Password** generated in step 2
 * `MAIL_FROM_ADDRESS` → the Gmail address that will appear as the sender
 
-#### Important
-
-Do **not** put your normal Gmail password in:
-
-```env
-MAIL_PASSWORD=
-```
-
 Do not commit the `.env` file to Git because it contains your email credentials and other secrets.
-
-After changing the mail configuration, restart the backend containers:
-
-```bash
-docker compose down
-docker compose up -d
-```
-
-If Laravel is still using old configuration values, clear the cached configuration:
-
-```bash
-docker compose exec app php artisan config:clear
-```
 
 You can then test features that send email, such as password reset or email verification.
 
