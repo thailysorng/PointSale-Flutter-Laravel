@@ -87,24 +87,106 @@ MYSQL_ROOT_PASSWORD=your_mysql_root_password
 
 ### Mail Configuration
 
-The application uses email functionality for features such as account verification or password reset.
+The application uses email for features such as **email verification** and **password reset**.
 
-Configure the mail settings in `.env` according to the mail service being used.
+This project uses **SMTP** to send emails.
+
+If you are using **Gmail**, you must create a **Google App Password**. Do **not** use your normal Gmail password.
+
+#### 1. Enable 2-Step Verification
+
+Sign in to the Google account that will be used to send emails.
+
+Open your Google Account security settings and enable **2-Step Verification**.
+
+You can access it here:
+
+https://myaccount.google.com/security
+
+Under **How you sign in to Google**, find **2-Step Verification** and complete the setup.
+
+#### 2. Create an App Password
+
+After 2-Step Verification is enabled:
+
+1. Open the **App Passwords** page:
+
+   https://myaccount.google.com/apppasswords
+
+2. Sign in to your Google account if requested.
+
+3. Enter a name for the app, for example:
+
+   ```text
+   PointSale
+   ```
+
+4. Click **Create**.
+
+5. Google will generate a **16-character App Password**.
+
+6. Copy this password.
+
+> This 16-character password is what you use for `MAIL_PASSWORD`. It is **not your normal Gmail password**.
+
+#### 3. Configure the Backend `.env`
+
+For Gmail, configure the following:
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-16-character-app-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=your-email@gmail.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
 
 For example:
 
 ```env
 MAIL_MAILER=smtp
-MAIL_HOST=your_smtp_host
+MAIL_HOST=smtp.gmail.com
 MAIL_PORT=587
-MAIL_USERNAME=your_email
-MAIL_PASSWORD=your_email_password
+MAIL_USERNAME=pointofsale@gmail.com
+MAIL_PASSWORD=abcdefghijklmnop
 MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=your_email
+MAIL_FROM_ADDRESS=pointofsale@gmail.com
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-Replace the values with the credentials provided by your email provider.
+Replace:
+
+* `MAIL_USERNAME` → your Gmail address
+* `MAIL_PASSWORD` → the **Google App Password** generated in step 2
+* `MAIL_FROM_ADDRESS` → the Gmail address that will appear as the sender
+
+#### Important
+
+Do **not** put your normal Gmail password in:
+
+```env
+MAIL_PASSWORD=
+```
+
+Do not commit the `.env` file to Git because it contains your email credentials and other secrets.
+
+After changing the mail configuration, restart the backend containers:
+
+```bash
+docker compose down
+docker compose up -d
+```
+
+If Laravel is still using old configuration values, clear the cached configuration:
+
+```bash
+docker compose exec app php artisan config:clear
+```
+
+You can then test features that send email, such as password reset or email verification.
 
 > Do not commit `.env` to Git. It may contain database passwords, email credentials, API keys, and other sensitive information.
 
