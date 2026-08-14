@@ -163,8 +163,6 @@ Replace:
 * `MAIL_PASSWORD` → the **Google App Password** generated in step 2
 * `MAIL_FROM_ADDRESS` → the Gmail address that will appear as the sender
 
-Do not commit the `.env` file to Git because it contains your email credentials and other secrets.
-
 You can then test features that send email, such as password reset or email verification.
 
 > Do not commit `.env` to Git. It may contain database passwords, email credentials, API keys, and other sensitive information.
