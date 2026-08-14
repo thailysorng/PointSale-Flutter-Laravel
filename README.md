@@ -77,7 +77,7 @@ DB_CONNECTION=mysql
 DB_HOST=mysql_db
 DB_PORT=3306
 DB_DATABASE=point_sale
-DB_USERNAME=root
+DB_USERNAME=user
 DB_PASSWORD=your_mysql_root_password
 
 MYSQL_ROOT_PASSWORD=your_mysql_root_password
