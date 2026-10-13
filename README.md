@@ -6,24 +6,13 @@ PointSale is a Point of Sale (POS) system consisting of a Flutter frontend and a
 
 ```text
 PointSale/
-├── frontend/    # Flutter application
-├── backend/     # Laravel API
+├── frontend/             # Flutter application
+├── backend/              # Laravel API
+├── docker-compose.yml/   # Docker-Compose Setup
 └── README.md
 ```
 
-## Requirements
-
-Make sure you have the following installed:
-
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-* Git
-
-You do **not** need to install PHP, Composer, MySQL, or Flutter locally if the provided Docker setup is used.
-
----
-
 # Setup
-
 ## 1. Clone the Project
 
 Clone the project and enter the project directory.
@@ -33,23 +22,12 @@ git clone <repository-url>
 cd PointSale
 ```
 
-If the frontend and backend are separate repositories, clone both repositories into the project folder:
-
-```text
-PointSale/
-├── frontend/
-├── backend/
-└── README.md
-```
-
----
-
 ## 2. Backend Environment
 
 Go into the backend directory:
 
 ```bash
-cd backend
+cd Backend
 ```
 
 Create the Laravel environment file:
@@ -58,11 +36,12 @@ Create the Laravel environment file:
 cp .env.example .env
 ```
 
-On Windows, you can also copy `.env.example` manually and rename it to:
+On Windows:
 
 ```text
-.env
+copy .env.example .env
 ```
+or you can just copy `.env.example` manually and rename it to `.env`
 
 ### Configure `.env`
 
@@ -167,9 +146,9 @@ You can then test features that send email, such as password reset or email veri
 
 > Do not commit `.env` to Git. It may contain database passwords, email credentials, API keys, and other sensitive information.
 
-## 3. Start the Backend
+## 3. Start Docker Compose
 
-From the `backend` directory:
+From the `Parent` directory run:
 
 ```bash
 docker compose up -d --build
@@ -181,15 +160,7 @@ Check that the containers are running:
 docker compose ps
 ```
 
-The backend should now be available through the configured port.
-
-For example:
-
-```text
-http://localhost:8000
-```
-
----
+This should Start both our frontend & backend container
 
 ## 4. Generate Laravel Application Key
 
@@ -199,8 +170,6 @@ This is a fresh installation, generate the Laravel application key for encryptio
 docker compose exec app php artisan key:generate
 ```
 
----
-
 ## 5. Run Database Migrations
 
 Run the migrations inside the Laravel container:
@@ -208,8 +177,6 @@ Run the migrations inside the Laravel container:
 ```bash
 docker compose exec app php artisan migrate
 ```
-
----
 
 ## 6. Storage Link
 
@@ -219,58 +186,14 @@ If the application uses Laravel's public storage, create the storage link:
 docker compose exec app php artisan storage:link
 ```
 
----
+## Finish
 
-# Frontend Setup
-
-Go to the frontend directory:
-
-```bash
-cd ../frontend
-```
-
-The Flutter application is also configured to run through Docker.
-
-Then start the frontend using its Docker configuration.
-
-```bash
-docker compose up -d --build
-```
-
-The Flutter web application should be available at the configured frontend port, Likely:
+Our Flutter web application should be available at the configured frontend port.\
+Example:
 
 ```text
 http://localhost:8080
 ```
-
----
-
-# Environment Files
-
-The project uses environment-specific configuration.
-
-Do **not** commit real environment files containing passwords, API keys, or other secrets.
-
-Use the provided example files as templates:
-
-```text
-backend/
-├── .env.example
-└── .env
-
-frontend/
-└── ...
-```
-
-When setting up the project for the first time:
-
-```text
-.env.example → .env
-```
-
-Then update the values according to your local Docker configuration.
-
----
 
 # Useful Docker Commands
 
