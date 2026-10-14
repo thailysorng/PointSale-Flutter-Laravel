@@ -1,5 +1,6 @@
 services:
   app:
+    image: point-sale-backend:1.0
     build:
       context: ./Backend
       dockerfile: Dockerfile
@@ -16,12 +17,13 @@ services:
       - mysql_db
 
   frontend:
+    image: point-sale-frontend:1.0
     build:
       context: ./Frontend
       dockerfile: Dockerfile
     stdin_open: true
     tty: true
-    container_name: point_sale_frontend
+    container_name: flutter
     ports:
       - "8080:8080"
 
