@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: ./backend
+      context: ./Backend
       dockerfile: Dockerfile
     container_name: laravel_app
     restart: unless-stopped
@@ -17,7 +17,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./Frontend
       dockerfile: Dockerfile
     stdin_open: true
     tty: true
