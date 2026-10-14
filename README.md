@@ -19,7 +19,7 @@ Clone the project and enter the project directory.
 
 ```bash
 git clone <repository-url>
-cd PointSale
+cd PointSale-Flutter-Laravel
 ```
 
 ## 2. Backend Environment
@@ -88,13 +88,9 @@ Under **How you sign in to Google**, find **2-Step Verification** and complete t
 
 After 2-Step Verification is enabled:
 
-1. Open the **App Passwords** page:
+1. Searh for app app password
 
-   https://myaccount.google.com/apppasswords
-
-2. Sign in to your Google account if requested.
-
-3. Enter a name for the app, for example:
+2. Enter a name for the app, for example:
 
    ```text
    PointSale
@@ -106,8 +102,7 @@ After 2-Step Verification is enabled:
 
 6. Copy this password.
 
-> This 16-character password is what you use for `MAIL_PASSWORD`. It is **not your normal Gmail password**.
-
+> This 16-character password is what you use for `MAIL_PASSWORD` | Note: Remove Spaces
 #### 3. Configure the Backend `.env`
 
 For Gmail, configure the following:
